@@ -75,3 +75,23 @@ class Repositorio:
                 print("Saldo insuficiente para realizar el retiro")
         else:
             print(f"No existe una cuenta con el número {numero_cuenta_origen}")
+
+
+
+    def eliminar_cuenta_y_usuario(self, numero_cuenta):
+        verificar_cuenta_query = "SELECT id, usuario_id FROM cuentas_ahorros WHERE numero_cuenta = %s;"
+        self.cursor.execute(verificar_cuenta_query, (numero_cuenta,))
+        cuenta_existente = self.cursor.fetchone()
+
+        if cuenta_existente:
+            cuenta_id, usuario_id = cuenta_existente
+            eliminar_cuenta_query = "DELETE FROM cuentas_ahorros WHERE id = %s;"
+            self.cursor.execute(eliminar_cuenta_query, (cuenta_id,))
+
+            eliminar_usuario_query = "DELETE FROM usuarios WHERE id = %s;"
+            self.cursor.execute(eliminar_usuario_query, (usuario_id,))
+
+            self.conexion.commit()
+            print(f"La cuenta {numero_cuenta} y su usuario asociado han sido eliminados.")
+        else:
+            print(f"No existe una cuenta con el número {numero_cuenta}")
