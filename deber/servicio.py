@@ -29,3 +29,5 @@ class Servicio:
             if nueva_cuenta_id:
                 print(f"Se ha creado una cuenta de ahorros con ID: {nueva_cuenta_id}")
 
+    def realizar_deposito(self, numero_cuenta_destino, monto):
+        self.repositorio.depositar_en_cuenta(numero_cuenta_destino, monto)
