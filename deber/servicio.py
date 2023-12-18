@@ -35,3 +35,6 @@ class Servicio:
 
     def realizar_retiro(self, numero_cuenta_origen, monto):
         self.repositorio.retirar_de_cuenta(numero_cuenta_origen, monto)
+
+    def eliminar_cuenta_y_usuario(self, numero_cuenta):
+        self.repositorio.eliminar_cuenta_y_usuario(numero_cuenta)
