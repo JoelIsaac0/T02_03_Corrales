@@ -37,3 +37,20 @@ class Repositorio:
         cuenta_id = self.cursor.fetchone()[0]
         self.conexion.commit()
         return cuenta_id
+
+    def depositar_en_cuenta(self, numero_cuenta_destino, monto):
+        verificar_cuenta_query = "SELECT id FROM cuentas_ahorros WHERE numero_cuenta = %s;"
+        self.cursor.execute(verificar_cuenta_query, (numero_cuenta_destino,))
+        cuenta_existente = self.cursor.fetchone()
+
+        if cuenta_existente:
+            depositar_query = """
+            UPDATE cuentas_ahorros
+            SET saldo = saldo + %s
+            WHERE numero_cuenta = %s;
+            """
+            self.cursor.execute(depositar_query, (monto, numero_cuenta_destino))
+            self.conexion.commit()
+            print(f"Depósito de {monto} realizado en la cuenta {numero_cuenta_destino}")
+        else:
+            print(f"No existe una cuenta con el número {numero_cuenta_destino}")
