@@ -54,3 +54,24 @@ class Repositorio:
             print(f"Depósito de {monto} realizado en la cuenta {numero_cuenta_destino}")
         else:
             print(f"No existe una cuenta con el número {numero_cuenta_destino}")
+
+    def retirar_de_cuenta(self, numero_cuenta_origen, monto):
+        verificar_cuenta_query = "SELECT id, saldo FROM cuentas_ahorros WHERE numero_cuenta = %s;"
+        self.cursor.execute(verificar_cuenta_query, (numero_cuenta_origen,))
+        cuenta_existente = self.cursor.fetchone()
+
+        if cuenta_existente:
+            cuenta_id, saldo_actual = cuenta_existente
+            if saldo_actual >= monto:
+                retirar_query = """
+                UPDATE cuentas_ahorros
+                SET saldo = saldo - %s
+                WHERE numero_cuenta = %s;
+                """
+                self.cursor.execute(retirar_query, (monto, numero_cuenta_origen))
+                self.conexion.commit()
+                print(f"Retiro de {monto} realizado de la cuenta {numero_cuenta_origen}")
+            else:
+                print("Saldo insuficiente para realizar el retiro")
+        else:
+            print(f"No existe una cuenta con el número {numero_cuenta_origen}")
