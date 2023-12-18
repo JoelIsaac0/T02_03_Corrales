@@ -30,11 +30,51 @@ class Servicio:
                 print(f"Se ha creado una cuenta de ahorros con ID: {nueva_cuenta_id}")
 
     def realizar_deposito(self, numero_cuenta_destino, monto):
-        self.repositorio.depositar_en_cuenta(numero_cuenta_destino, monto)
+        try:
+            cuenta_existente = self.repositorio.depositar_en_cuenta(numero_cuenta_destino, monto)
 
+            if cuenta_existente:
+                return {"message": "Depósito realizado exitosamente"}
+            else:
+                raise ValueError(f"No se encontró una cuenta para el número de cuenta {numero_cuenta_destino}")
+
+        except Exception as e:
+            print(f"Error al realizar el depósito: {e}")
+            raise
 
     def realizar_retiro(self, numero_cuenta_origen, monto):
         self.repositorio.retirar_de_cuenta(numero_cuenta_origen, monto)
 
     def eliminar_cuenta_y_usuario(self, numero_cuenta):
         self.repositorio.eliminar_cuenta_y_usuario(numero_cuenta)
+
+
+    def solicitar_credito(self, usuario_id, monto, plazo_meses, tasa_interes):
+        credito_id = self.repositorio.solicitar_credito(usuario_id, monto, plazo_meses, tasa_interes)
+        if credito_id:
+            print(f"Crédito solicitado con ID: {credito_id}")
+        return credito_id
+
+    def aprobar_credito(self, credito_id):
+        self.repositorio.aprobar_credito(credito_id)
+        print(f"Crédito con ID {credito_id} aprobado")
+
+    def rechazar_credito(self, credito_id):
+        self.repositorio.rechazar_credito(credito_id)
+        print(f"Crédito con ID {credito_id} rechazado")
+
+    def generar_reporte_creditos(self, usuario_id):
+        creditos_usuario = self.repositorio.obtener_creditos_usuario(usuario_id)
+
+        if creditos_usuario:
+            print(f"Reporte de créditos para el usuario con ID {usuario_id}:")
+            for credito in creditos_usuario:
+                print(credito)
+        else:
+            print(f"No hay créditos para el usuario con ID {usuario_id}")
+
+    def generar_tabla_amortizacion(self, credito_id):
+        self.repositorio.generar_tabla_amortizacion(credito_id)
+
+    def obtener_usuarios(self):
+        return self.repositorio.obtener_usuarios()
