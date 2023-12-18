@@ -95,3 +95,11 @@ class Repositorio:
             print(f"La cuenta {numero_cuenta} y su usuario asociado han sido eliminados.")
         else:
             print(f"No existe una cuenta con el número {numero_cuenta}")
+
+
+
+    def obtener_usuarios(self):
+        obtener_usuarios_query = "SELECT * FROM usuarios;"
+        self.cursor.execute(obtener_usuarios_query)
+        usuarios = self.cursor.fetchall()
+        return usuarios
