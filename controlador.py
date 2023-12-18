@@ -75,7 +75,6 @@ def obtener_datos_usuario():
     celular = input("Ingrese el número de celular: ")
     return nombre, apellido, correo, cedula, celular
 
-# Crear un nuevo usuario y cuenta bancaria
 try:
     datos_usuario = obtener_datos_usuario()
     nuevo_usuario_id = agregar_usuario(*datos_usuario)
