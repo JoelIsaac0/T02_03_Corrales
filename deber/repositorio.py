@@ -26,3 +26,14 @@ class Repositorio:
         usuario_id = self.cursor.fetchone()[0]
         self.conexion.commit()
         return usuario_id
+
+    def crear_cuenta_ahorros(self, usuario_id, saldo_inicial=0):
+        numero_cuenta = ''.join([str(random.randint(0, 9)) for _ in range(10)])
+        insertar_cuenta_query = """
+        INSERT INTO cuentas_ahorros (usuario_id, numero_cuenta, saldo)
+        VALUES (%s, %s, %s) RETURNING id;
+        """
+        self.cursor.execute(insertar_cuenta_query, (usuario_id, numero_cuenta, saldo_inicial))
+        cuenta_id = self.cursor.fetchone()[0]
+        self.conexion.commit()
+        return cuenta_id
