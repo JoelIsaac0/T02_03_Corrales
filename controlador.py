@@ -23,6 +23,11 @@ class Controlador:
 
         self.servicio.realizar_deposito(numero_cuenta_destino, monto)
 
+    def realizar_retiro_desde_consola(self):
+        numero_cuenta_origen = input("Ingrese el número de cuenta de origen: ")
+        monto = float(input("Ingrese el monto a retirar: "))
+
+        self.servicio.realizar_retiro(numero_cuenta_origen, monto)
 
 	
 if __name__ == "__main__":
