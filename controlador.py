@@ -17,7 +17,14 @@ class Controlador:
 
         self.servicio.registrar_usuario(nombre, apellido, correo, cedula, celular)
 
+    def realizar_deposito_desde_consola(self):
+        numero_cuenta_destino = input("Ingrese el número de cuenta de destino: ")
+        monto = float(input("Ingrese el monto a depositar: "))
 
+        self.servicio.realizar_deposito(numero_cuenta_destino, monto)
+
+
+	
 if __name__ == "__main__":
     controlador = Controlador()
     controlador.registrar_usuario_desde_consola()
