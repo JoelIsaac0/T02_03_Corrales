@@ -36,10 +36,12 @@ class Controlador:
 	
 if __name__ == "__main__":
     controlador = Controlador()
+    #DESCOMENTAR PARA REALIZAR LAS RESPECTIVAS FUNCIONES
+    
     controlador.registrar_usuario_desde_consola()
+    #controlador.realizar_deposito_desde_consola()
+    #controlador.eliminar_cuenta_y_usuario_desde_consola()
     controlador.realizar_deposito_desde_consola()
-
-    # Agrega llamadas a otros métodos del controlador según sea necesario
-
+    controlador.realizar_retiro_desde_consola()
     # Cerrar la conexión al finalizar
     controlador.repositorio.cerrar_conexion()
