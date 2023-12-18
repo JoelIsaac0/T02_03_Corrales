@@ -31,3 +31,7 @@ class Servicio:
 
     def realizar_deposito(self, numero_cuenta_destino, monto):
         self.repositorio.depositar_en_cuenta(numero_cuenta_destino, monto)
+
+
+    def realizar_retiro(self, numero_cuenta_origen, monto):
+        self.repositorio.retirar_de_cuenta(numero_cuenta_origen, monto)
