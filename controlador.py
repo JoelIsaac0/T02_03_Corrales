@@ -29,6 +29,10 @@ class Controlador:
 
         self.servicio.realizar_retiro(numero_cuenta_origen, monto)
 
+    def eliminar_cuenta_y_usuario_desde_consola(self):
+        numero_cuenta = input("Ingrese el número de cuenta a eliminar: ")
+
+        self.servicio.eliminar_cuenta_y_usuario(numero_cuenta)
 	
 if __name__ == "__main__":
     controlador = Controlador()
