@@ -17,4 +17,12 @@ class Repositorio:
         self.cursor.close()
         self.conexion.close()
 
-    
+    def agregar_usuario(self, nombre, apellido, correo, cedula, celular):
+        insertar_usuario_query = """
+        INSERT INTO usuarios (nombre, apellido, correo, cedula, celular)
+        VALUES (%s, %s, %s, %s, %s) RETURNING id;
+        """
+        self.cursor.execute(insertar_usuario_query, (nombre, apellido, correo, cedula, celular))
+        usuario_id = self.cursor.fetchone()[0]
+        self.conexion.commit()
+        return usuario_id
